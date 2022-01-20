@@ -14,11 +14,15 @@ docker-compose build --no-cache
 
 docker compose up --force-recreate
 
-# App will be running on: http://localhost:8080/
+app will be running on: http://localhost:8080/
 
-# Swagger UI will be running on: http://localhost:8080/swagger-ui/index.html#/
+Swagger UI will be running on: http://localhost:8080/swagger-ui/index.html#/
 
-#Course API CRUD endpoints: 
+You can find 
+
+# Course API CRUD endpoints: 
+Postman collections on root folder: courses.postman_collection.json
+
 Base URL: http://localhost:8080/v1/courses
 <br>
 <br>
@@ -53,7 +57,9 @@ JSON body:
 Delete an existing course: DELETE /v1/courses/{id}
 
 
-#Student API CRUD endpoints:
+# Student API CRUD endpoints:
+Postman collections on root folder: students.postman_collection.json
+
 Base URL: http://localhost:8080/v1/students
 <br>
 <br>
@@ -88,7 +94,7 @@ JSON body:
 Delete an existing student: DELETE /v1/students/{id}
 
 
-#Registrations and Filters operations:
+# Registrations and Filters operations:
 Create API for students to register to courses:
 /v1/students/{studentId}/register/{courseId}
 <br>
