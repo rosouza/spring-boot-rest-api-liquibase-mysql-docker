@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StudentResource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">school API</a> &gt; <a href="index.source.html" class="el_package">com.rosouza.school.web.rest</a> &gt; <span class="el_source">StudentResource.java</span></div><h1>StudentResource.java</h1><pre class="source lang-java linenums">package com.rosouza.school.web.rest;
+
+import com.rosouza.school.service.RegistrationService;
+import com.rosouza.school.service.StudentService;
+import com.rosouza.school.service.dto.StudentDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
+import java.util.Objects;
+
+@RestController
+@CrossOrigin
+<span class="fc" id="L18">@Slf4j</span>
+<span class="fc" id="L19">@RequiredArgsConstructor</span>
+public class StudentResource {
+
+    private final StudentService studentService;
+    private final RegistrationService registrationService;
+
+    /**
+     * {@code GET  /v1/students} : Retrieve all existing students.
+     *
+     * @return all existing students
+     */
+    @GetMapping(&quot;/v1/students&quot;)
+    public ResponseEntity&lt;List&lt;StudentDTO&gt;&gt; findAll() {
+<span class="nc" id="L32">        log.debug(&quot;REST request to retrieve all existing students&quot;);</span>
+
+<span class="nc" id="L34">        var result = studentService.findAll();</span>
+<span class="nc" id="L35">        return ResponseEntity.ok(result);</span>
+    }
+
+    /**
+     * {@code POST  /v1/students} : Create a new student.
+     *
+     * @param studentDTO the studentDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new studentDTO,
+     * or with status {@code 400 (Bad Request)} if the student has already an ID.
+     */
+    @PostMapping(&quot;/v1/students&quot;)
+    public ResponseEntity&lt;StudentDTO&gt; createStudent(
+            @Valid @RequestBody StudentDTO studentDTO
+    ) {
+<span class="fc" id="L49">        log.debug(&quot;REST request to save Student : {}&quot;, studentDTO);</span>
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (Objects.nonNull(studentDTO.getId())) {</span>
+<span class="fc" id="L52">            return ResponseEntity.badRequest().build();</span>
+        }
+
+<span class="fc" id="L55">        var result = studentService.createStudent(studentDTO);</span>
+<span class="fc" id="L56">        return ResponseEntity.created(URI.create(&quot;/v1/students/&quot; + result.getId())).body(result);</span>
+    }
+
+    /**
+     * {@code DELETE  /v1/students/:id} : delete the &quot;id&quot; student.
+     *
+     * @param id the id of the Student to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping(&quot;/v1/students/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteStudent(
+            @PathVariable Long id
+    ) {
+<span class="nc" id="L69">        log.debug(&quot;REST request to delete a Student: {}&quot;, id);</span>
+<span class="nc" id="L70">        studentService.deleteStudent(id);</span>
+<span class="nc" id="L71">        return ResponseEntity.noContent().build();</span>
+    }
+
+    /**
+     * {@code GET  /v1/students/:id} : get the &quot;id&quot; student.
+     *
+     * @param id the id of the student to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)},
+     * or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping(&quot;/v1/students/{id}&quot;)
+    public ResponseEntity&lt;StudentDTO&gt; getStudent(
+            @PathVariable Long id
+    ) {
+<span class="fc" id="L85">        log.debug(&quot;REST request to get a Student: {}&quot;, id);</span>
+<span class="fc" id="L86">        var result = studentService.getStudent(id);</span>
+<span class="fc" id="L87">        return ResponseEntity.ok(result);</span>
+    }
+
+    /**
+     * {@code PUT  /v1/students/:id} : Updates an existing student.
+     *
+     * @param id         the id of the student to update.
+     * @param studentDTO the studentDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated studentDTO,
+     * or with status {@code 400 (Bad Request)} if the studentDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the studentDTO couldn't be updated.
+     */
+    @PutMapping(&quot;/v1/students/{id}&quot;)
+    public ResponseEntity&lt;StudentDTO&gt; updateStudent(
+            @PathVariable Long id,
+            @Valid @RequestBody StudentDTO studentDTO
+    ) {
+<span class="fc" id="L104">        log.debug(&quot;REST request to update a Student: {} {}&quot;, id, studentDTO);</span>
+<span class="fc" id="L105">        var result = studentService.updateStudent(id, studentDTO);</span>
+<span class="fc" id="L106">        return ResponseEntity.ok().body(result);</span>
+    }
+
+    /**
+     * Retrieves all students without any courses.
+     *
+     * @return the set of students.
+     */
+    @GetMapping(&quot;/v1/students/no-registrations&quot;)
+    public ResponseEntity&lt;List&lt;StudentDTO&gt;&gt; findStudentsWithNoRegistrations() {
+<span class="nc" id="L116">        log.debug(&quot;REST request to filter all courses without any students.&quot;);</span>
+<span class="nc" id="L117">        var result = studentService.findStudentsWithNoRegistrations();</span>
+<span class="nc" id="L118">        return ResponseEntity.ok(result);</span>
+    }
+
+    /**
+     * Registers a given student into a given course.
+     *
+     * @param studentId the id of the student to update.
+     * @param courseId the id of the student to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated studentDTO,
+     * or with status {@code 400 (Bad Request)} if the studentId or courseId is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the student couldn't be registered.
+     */
+    @PostMapping(&quot;/v1/students/{studentId}/register/{courseId}&quot;)
+    public ResponseEntity&lt;StudentDTO&gt; register(
+            @PathVariable Long studentId,
+            @PathVariable Long courseId
+    ) {
+<span class="nc" id="L135">        log.debug(&quot;REST request to register the student [{}] into a the course[{}].&quot;, studentId, courseId);</span>
+
+<span class="nc bnc" id="L137" title="All 4 branches missed.">        if (Objects.isNull(studentId) || Objects.isNull(courseId)) {</span>
+<span class="nc" id="L138">            return ResponseEntity.badRequest().build();</span>
+        }
+
+<span class="nc" id="L141">        var result = registrationService.register(studentId, courseId);</span>
+<span class="nc" id="L142">        return ResponseEntity.ok(result);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

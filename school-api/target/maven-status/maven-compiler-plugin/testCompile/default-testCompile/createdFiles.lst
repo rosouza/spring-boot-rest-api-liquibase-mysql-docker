@@ -1,0 +1,13 @@
+com\rosouza\school\service\StudentServiceTest.class
+com\rosouza\school\domain\StudentTest.class
+com\rosouza\school\repository\CourseRepositoryTest.class
+com\rosouza\school\CourseTestConstants.class
+com\rosouza\school\repository\StudentCourseIntegrationTest.class
+com\rosouza\school\web\rest\StudentResourceTest.class
+com\rosouza\school\config\LiquibaseConfiguration.class
+com\rosouza\school\StudentTestConstants.class
+com\rosouza\school\repository\StudentRepositoryTest.class
+com\rosouza\school\service\CourseServiceTest.class
+com\rosouza\school\config\SpringLiquibaseUtil.class
+com\rosouza\school\domain\CourseTest.class
+com\rosouza\school\web\rest\CourseResourceTest.class

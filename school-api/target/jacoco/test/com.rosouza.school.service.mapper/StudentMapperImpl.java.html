@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StudentMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">school API</a> &gt; <a href="index.source.html" class="el_package">com.rosouza.school.service.mapper</a> &gt; <span class="el_source">StudentMapperImpl.java</span></div><h1>StudentMapperImpl.java</h1><pre class="source lang-java linenums">package com.rosouza.school.service.mapper;
+
+import com.rosouza.school.domain.Course;
+import com.rosouza.school.domain.Student;
+import com.rosouza.school.service.dto.CourseDTO;
+import com.rosouza.school.service.dto.StudentDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2022-01-20T16:41:38-0500&quot;,
+    comments = &quot;version: 1.3.1.Final, compiler: javac, environment: Java 11.0.10 (Oracle Corporation)&quot;
+)
+@Component
+<span class="fc" id="L18">public class StudentMapperImpl implements StudentMapper {</span>
+
+    @Override
+    public StudentDTO toDto(Student entity) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if ( entity == null ) {</span>
+<span class="nc" id="L23">            return null;</span>
+        }
+
+<span class="fc" id="L26">        StudentDTO studentDTO = new StudentDTO();</span>
+
+<span class="fc" id="L28">        studentDTO.setId( entity.getId() );</span>
+<span class="fc" id="L29">        studentDTO.setName( entity.getName() );</span>
+<span class="fc" id="L30">        studentDTO.setCourses( courseListToCourseDTOList( entity.getCourses() ) );</span>
+
+<span class="fc" id="L32">        return studentDTO;</span>
+    }
+
+    @Override
+    public List&lt;StudentDTO&gt; toDto(List&lt;Student&gt; entityList) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if ( entityList == null ) {</span>
+<span class="nc" id="L38">            return null;</span>
+        }
+
+<span class="nc" id="L41">        List&lt;StudentDTO&gt; list = new ArrayList&lt;StudentDTO&gt;( entityList.size() );</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for ( Student student : entityList ) {</span>
+<span class="nc" id="L43">            list.add( toDto( student ) );</span>
+<span class="nc" id="L44">        }</span>
+
+<span class="nc" id="L46">        return list;</span>
+    }
+
+    @Override
+    public List&lt;Student&gt; toEntity(List&lt;StudentDTO&gt; dtoList) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if ( dtoList == null ) {</span>
+<span class="nc" id="L52">            return null;</span>
+        }
+
+<span class="nc" id="L55">        List&lt;Student&gt; list = new ArrayList&lt;Student&gt;( dtoList.size() );</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for ( StudentDTO studentDTO : dtoList ) {</span>
+<span class="nc" id="L57">            list.add( toEntity( studentDTO ) );</span>
+<span class="nc" id="L58">        }</span>
+
+<span class="nc" id="L60">        return list;</span>
+    }
+
+    @Override
+    public Student toEntity(StudentDTO dto) {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if ( dto == null ) {</span>
+<span class="nc" id="L66">            return null;</span>
+        }
+
+<span class="fc" id="L69">        Student student = new Student();</span>
+
+<span class="fc" id="L71">        student.setId( dto.getId() );</span>
+<span class="fc" id="L72">        student.setName( dto.getName() );</span>
+<span class="fc" id="L73">        student.setCourses( courseDTOListToCourseList( dto.getCourses() ) );</span>
+
+<span class="fc" id="L75">        return student;</span>
+    }
+
+    protected CourseDTO courseToCourseDTO(Course course) {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if ( course == null ) {</span>
+<span class="nc" id="L80">            return null;</span>
+        }
+
+<span class="nc" id="L83">        CourseDTO courseDTO = new CourseDTO();</span>
+
+<span class="nc" id="L85">        courseDTO.setId( course.getId() );</span>
+<span class="nc" id="L86">        courseDTO.setName( course.getName() );</span>
+<span class="nc" id="L87">        courseDTO.setStudents( toDto( course.getStudents() ) );</span>
+
+<span class="nc" id="L89">        return courseDTO;</span>
+    }
+
+    protected List&lt;CourseDTO&gt; courseListToCourseDTOList(List&lt;Course&gt; list) {
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L94">            return null;</span>
+        }
+
+<span class="fc" id="L97">        List&lt;CourseDTO&gt; list1 = new ArrayList&lt;CourseDTO&gt;( list.size() );</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        for ( Course course : list ) {</span>
+<span class="nc" id="L99">            list1.add( courseToCourseDTO( course ) );</span>
+<span class="nc" id="L100">        }</span>
+
+<span class="fc" id="L102">        return list1;</span>
+    }
+
+    protected Course courseDTOToCourse(CourseDTO courseDTO) {
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if ( courseDTO == null ) {</span>
+<span class="nc" id="L107">            return null;</span>
+        }
+
+<span class="nc" id="L110">        Course course = new Course();</span>
+
+<span class="nc" id="L112">        course.setId( courseDTO.getId() );</span>
+<span class="nc" id="L113">        course.setName( courseDTO.getName() );</span>
+<span class="nc" id="L114">        course.setStudents( toEntity( courseDTO.getStudents() ) );</span>
+
+<span class="nc" id="L116">        return course;</span>
+    }
+
+    protected List&lt;Course&gt; courseDTOListToCourseList(List&lt;CourseDTO&gt; list) {
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if ( list == null ) {</span>
+<span class="nc" id="L121">            return null;</span>
+        }
+
+<span class="fc" id="L124">        List&lt;Course&gt; list1 = new ArrayList&lt;Course&gt;( list.size() );</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">        for ( CourseDTO courseDTO : list ) {</span>
+<span class="nc" id="L126">            list1.add( courseDTOToCourse( courseDTO ) );</span>
+<span class="nc" id="L127">        }</span>
+
+<span class="fc" id="L129">        return list1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
