@@ -18,10 +18,9 @@ app will be running on: http://localhost:8080/
 
 Swagger UI will be running on: http://localhost:8080/swagger-ui/index.html#/
 
-You can find 
 
 # Course API CRUD endpoints: 
-Postman collections on root folder: courses.postman_collection.json
+You can find Postman collections on root folder: courses.postman_collection.json
 
 Base URL: http://localhost:8080/v1/courses
 <br>
@@ -58,7 +57,7 @@ Delete an existing course: DELETE /v1/courses/{id}
 
 
 # Student API CRUD endpoints:
-Postman collections on root folder: students.postman_collection.json
+You can find Postman collections on root folder: students.postman_collection.json
 
 Base URL: http://localhost:8080/v1/students
 <br>
